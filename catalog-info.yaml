@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: backstage-lab
+  description: Our main Backstage Demo Repository
+  annotations:
+    github.com/project-slug: douby-org/lab-backstage-basics
+spec:
+  type: service
+  lifecycle: experimental
+  owner: douby-org
