@@ -2,7 +2,7 @@
 # Replace the container image name with the templated service name
 # If you want to push the image to a registry, add the necessary steps for authentication and change 'push' to 'true'
 
-name: Build Docker Image
+name: CI – ${{ values.name }}
 
 on:
   push:
@@ -13,6 +13,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      REPO_OWNER: ${{ (values.repoUrl | parseRepoUrl).owner }}
+      REPO_NAME: ${{ (values.repoUrl | parseRepoUrl).repo }}
+      IMAGE_NAME: ${{ (values.repoUrl | parseRepoUrl).owner }}/{{ (values.repoUrl | parseRepoUrl).repo }}
 
     steps:
       - name: Checkout code
@@ -25,7 +29,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./template-base/Dockerfile
+          file: ./Dockerfile
           push: false
           tags: |
-            templated-service:${{ github.sha }}
+            ${{ env.IMAGE_NAME }}:${{ github.sha }}

@@ -3,6 +3,11 @@
 
 FROM gcr.io/distroless/nodejs24-debian12
 
+# Image metadata from Backstage template variables
+LABEL org.opencontainers.image.title="${{ values.name }}"
+LABEL org.opencontainers.image.description="${{ values.description }}"
+LABEL org.opencontainers.image.vendor="${{ values.owner }}"
+
 WORKDIR /app
 COPY src/main.js ./
 

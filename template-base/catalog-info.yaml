@@ -4,13 +4,12 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: templated-service
-  description: |
-    This is still the template for your templated Backstage project. Maybe you wan  dasfasdft to replace this text with something templated
+  name: ${{ values.name | lower | replace(' ', '-') }}
+  description: ${{ values.description }}
   annotations:
-    github.com/project-slug: your-project-slug
+    github.com/project-slug: ${{ (values.repoUrl | parseRepoUrl).owner }}/{{ (values.repoUrl | parseRepoUrl).repo }}
     backstage.io/techdocs-ref: dir:.
 spec:
   type: service
-  owner: platform-team
+  owner: ${{ values.owner }}
   lifecycle: experimental
